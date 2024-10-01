@@ -8,7 +8,8 @@ import lombok.*;
 @Builder
 public class Book {
     @Getter
-    private int id;
+//    @NonNull
+    private String id;
     @Getter
     private String title;
     @Getter
