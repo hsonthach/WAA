@@ -1,0 +1,59 @@
+POST http://localhost:8080/v1/books
+Content-Type: application/json
+
+{
+  "title": "Java 8 in Action",
+  "author": "Raoul-Gabriel Urma",
+  "price": 100,
+  "isbn": "1617291994",
+  "id": "123",
+  "description": "Java 8 in Action is a clearly written guide to the new features of Java 8. The book covers lambdas, streams, and functional-style programming. With Java 8's functional features you can now write more concise code in less time, and also automatically benefit from multicore architectures. It's time to dig in!"
+}
+
+<> 2024-09-30T135426.200.json
+<> 2024-09-30T135413.200.json
+<> 2024-09-30T135330.200.json
+<> 2024-09-30T135253.200.json
+<> 2024-09-30T135219.200.json
+<> 2024-09-30T134947.200.json
+<> 2024-09-30T134927.405.json
+<> 2024-09-30T134914.405.json
+<> 2024-09-30T134832.405.json
+<> 2024-09-30T134749.405.json
+
+###
+GET http://localhost:8080/books
+Accept: application/v1+json
+
+
+<> 2024-09-30T135429.200.json
+<> 2024-09-30T135423.200.json
+<> 2024-09-30T135330-1.200.json
+<> 2024-09-30T135255.200.json
+<> 2024-09-30T135247.200.json
+<> 2024-09-30T134951.200.json
+<> 2024-09-30T134924.200.json
+<> 2024-09-30T134728.200.json
+
+###
+GET http://localhost:8080/books/2
+Accept: application/json
+X-API-Version: 1
+
+
+###
+PUT http://localhost:8080/books/2?version=1
+Content-Type: application/json
+
+{
+  "title": "Java 8 in Action",
+  "author": "Raoul-Gabriel Urma",
+  "price": 100,
+  "isbn": "1617291994",
+  "description": "Java 8 in Action is a clearly written guide to the new features of Java 8. The book covers lambdas, streams, and functional-style programming. With Java 8's functional features you can now write more concise code in less time, and also automatically benefit from multicore architectures. It's time to dig in!"
+}
+
+###
+DELETE http://localhost:8080/books/1
+
+
