@@ -46,7 +46,7 @@ PUT http://localhost:8080/books/2?version=1
 Content-Type: application/json
 
 {
-  "title": "Java 8 in Action",
+  "title": "Hey",
   "author": "Raoul-Gabriel Urma",
   "price": 100,
   "isbn": "1617291994",

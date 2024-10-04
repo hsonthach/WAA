@@ -1,4 +1,269 @@
 GET http://localhost:8080/books
+Accept: application/v1+json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-10-04T104942.200.json
+
+###
+
+DELETE http://localhost:8080/books/1
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-10-04T104936.200.json
+
+###
+
+GET http://localhost:8080/books
+Accept: application/v1+json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-10-04T104934.200.json
+
+###
+
+GET http://localhost:8080/books/2
+Accept: application/json
+X-API-Version: 1
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-10-04T104930.200.json
+
+###
+
+PUT http://localhost:8080/books/2?version=1
+Content-Type: application/json
+Content-Length: 423
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "title": "Hey",
+  "author": "Raoul-Gabriel Urma",
+  "price": 100,
+  "isbn": "1617291994",
+  "description": "Java 8 in Action is a clearly written guide to the new features of Java 8. The book covers lambdas, streams, and functional-style programming. With Java 8's functional features you can now write more concise code in less time, and also automatically benefit from multicore architectures. It's time to dig in!"
+}
+
+<> 2024-10-04T104925.200.json
+
+###
+
+PUT http://localhost:8080/books/2?version=1
+Content-Type: application/json
+Content-Length: 436
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "title": "Java 8 in Action",
+  "author": "Raoul-Gabriel Urma",
+  "price": 100,
+  "isbn": "1617291994",
+  "description": "Java 8 in Action is a clearly written guide to the new features of Java 8. The book covers lambdas, streams, and functional-style programming. With Java 8's functional features you can now write more concise code in less time, and also automatically benefit from multicore architectures. It's time to dig in!"
+}
+
+<> 2024-10-04T104915.200.json
+
+###
+
+GET http://localhost:8080/books/2
+Accept: application/json
+X-API-Version: 1
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-10-04T104910.200.json
+
+###
+
+GET http://localhost:8080/books
+Accept: application/v1+json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-10-04T104908.200.json
+
+###
+
+POST http://localhost:8080/v1/books
+Content-Type: application/json
+Content-Length: 451
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "title": "Java 8 in Action",
+  "author": "Raoul-Gabriel Urma",
+  "price": 100,
+  "isbn": "1617291994",
+  "id": "123",
+  "description": "Java 8 in Action is a clearly written guide to the new features of Java 8. The book covers lambdas, streams, and functional-style programming. With Java 8's functional features you can now write more concise code in less time, and also automatically benefit from multicore architectures. It's time to dig in!"
+}
+
+<> 2024-10-04T104906.200.json
+
+###
+
+POST http://localhost:8080/v1/books
+Content-Type: application/json
+Content-Length: 451
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "title": "Java 8 in Action",
+  "author": "Raoul-Gabriel Urma",
+  "price": 100,
+  "isbn": "1617291994",
+  "id": "123",
+  "description": "Java 8 in Action is a clearly written guide to the new features of Java 8. The book covers lambdas, streams, and functional-style programming. With Java 8's functional features you can now write more concise code in less time, and also automatically benefit from multicore architectures. It's time to dig in!"
+}
+
+<> 2024-10-04T104904.200.json
+
+###
+
+GET http://localhost:8080/books
+Accept: application/v1+json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-10-04T104745.200.json
+
+###
+
+POST http://localhost:8080/v1/books
+Content-Type: application/json
+Content-Length: 451
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "title": "Java 8 in Action",
+  "author": "Raoul-Gabriel Urma",
+  "price": 100,
+  "isbn": "1617291994",
+  "id": "123",
+  "description": "Java 8 in Action is a clearly written guide to the new features of Java 8. The book covers lambdas, streams, and functional-style programming. With Java 8's functional features you can now write more concise code in less time, and also automatically benefit from multicore architectures. It's time to dig in!"
+}
+
+<> 2024-10-04T104744.200.json
+
+###
+
+GET http://localhost:8080/books
+Accept: application/v1+json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-10-04T104736.200.json
+
+###
+
+POST http://localhost:8080/v1/books
+Content-Type: application/json
+Content-Length: 451
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "title": "Java 8 in Action",
+  "author": "Raoul-Gabriel Urma",
+  "price": 100,
+  "isbn": "1617291994",
+  "id": "123",
+  "description": "Java 8 in Action is a clearly written guide to the new features of Java 8. The book covers lambdas, streams, and functional-style programming. With Java 8's functional features you can now write more concise code in less time, and also automatically benefit from multicore architectures. It's time to dig in!"
+}
+
+<> 2024-10-04T104735.200.json
+
+###
+
+GET http://localhost:8080/books
+Accept: application/v1+json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+GET http://localhost:8080/books
+Accept: application/v1+json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-10-04T104614.200.json
+
+###
+
+POST http://localhost:8080/v1/books
+Content-Type: application/json
+Content-Length: 451
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "title": "Java 8 in Action",
+  "author": "Raoul-Gabriel Urma",
+  "price": 100,
+  "isbn": "1617291994",
+  "id": "123",
+  "description": "Java 8 in Action is a clearly written guide to the new features of Java 8. The book covers lambdas, streams, and functional-style programming. With Java 8's functional features you can now write more concise code in less time, and also automatically benefit from multicore architectures. It's time to dig in!"
+}
+
+<> 2024-10-04T104555.200.json
+
+###
+
+POST http://localhost:8080/v1/books
+Content-Type: application/json
+Content-Length: 451
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "title": "Java 8 in Action",
+  "author": "Raoul-Gabriel Urma",
+  "price": 100,
+  "isbn": "1617291994",
+  "id": "123",
+  "description": "Java 8 in Action is a clearly written guide to the new features of Java 8. The book covers lambdas, streams, and functional-style programming. With Java 8's functional features you can now write more concise code in less time, and also automatically benefit from multicore architectures. It's time to dig in!"
+}
+
+<> 2024-10-04T104437.500.json
+
+###
+
+GET http://localhost:8080/books
+Accept: application/v1+json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+###
+
+GET http://localhost:8080/books
 Accept: application/json
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
