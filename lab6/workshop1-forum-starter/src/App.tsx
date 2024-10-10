@@ -90,6 +90,11 @@ const App = () => {
     setComment('')
   }
 
+  function deleteComment(rpid: number) {
+    const newList = list.filter((item) => item.rpid !== rpid)
+    setList(newList)
+  }
+
   return (
     <div className="app">
       {/* Nav Tab */}
@@ -145,6 +150,7 @@ const App = () => {
                   <img
                       className="bili-avatar-img"
                       alt=""
+                      src={item.user.avatar || avatar}
                   />
                 </div>
               </div>
@@ -162,7 +168,7 @@ const App = () => {
                     <span className="reply-time">{item.ctime}</span>
                     {/* total likes */}
                     <span className="reply-time">Like:{item.like}</span>
-                    <span className="delete-btn">
+                    <span className="delete-btn" onClick={() => deleteComment(item.rpid)}>
                     Delete
                   </span>
                   </div>
