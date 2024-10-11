@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import './App.scss'
 import avatar from './images/bozai.png'
+import {useRef} from 'react';
 
 
 // Comment List data
@@ -59,13 +60,10 @@ const tabs = [
     {type: 'newest', text: 'Newest'},
 ]
 
-const App = () => {
-
-    const [list, setList] = useState(defaultList)
+function StatefulPost(props: { list: any, setList: any }) {
+    const {list, setList} = props
     const [comment, setComment] = useState('')
-    const [currentFilter, setCurrentFilter] = useState('')
-
-    function postMessageHandler(event: any): void {
+    const postMessageHandler = (event: any) => {
         const newList = [...list]
 
 // 11-13 11:29
@@ -85,6 +83,86 @@ const App = () => {
         setList(newList)
         setComment('')
     }
+
+    return <div className="box-normal">
+        {/* current logged in user profile */}
+        <div className="reply-box-avatar">
+            <div className="bili-avatar">
+                <img className="bili-avatar-img" src={avatar} alt="Profile"/>
+            </div>
+        </div>
+        <div className="reply-box-wrap">
+            {/* comment */}
+            <textarea
+                className="reply-box-textarea"
+                placeholder="tell something..."
+                onChange={(event: any) => {
+                    console.log(event.target.value)
+                    setComment(event.target.value)
+                }}
+                value={comment}
+            />
+            {/* post button */}
+            <div className="reply-box-send">
+                <div className="send-text" onClick={postMessageHandler}>post</div>
+            </div>
+        </div>
+    </div>;
+}
+
+
+function StatelessPost({list, setList}: { list: any; setList: any }) {
+    const commentRef = useRef<HTMLTextAreaElement>(null);
+
+    const postMessageHandler = (event: any) => {
+        const newList = [...list];
+        const time = new Date().toISOString();
+        newList.unshift({
+            rpid: list.length + 1,
+            user: {
+                uid: user.uid,
+                avatar: user.avatar,
+                uname: user.uname,
+            },
+            content: commentRef.current?.value || '',
+            ctime: time,
+            like: 0,
+        });
+        console.log(newList);
+        setList(newList);
+        if (commentRef.current) {
+            commentRef.current.value = '';
+        }
+    };
+
+    return (
+        <div className="box-normal">
+            <div className="reply-box-avatar">
+                <div className="bili-avatar">
+                    <img className="bili-avatar-img" src={avatar} alt="Profile"/>
+                </div>
+            </div>
+            <div className="reply-box-wrap">
+                <textarea
+                    className="reply-box-textarea"
+                    placeholder="tell something..."
+                    ref={commentRef}
+                />
+                <div className="reply-box-send">
+                    <div className="send-text" onClick={postMessageHandler}>
+                        post
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+const App = () => {
+
+    const [list, setList] = useState(defaultList)
+    const [comment, setComment] = useState('')
+    const [currentFilter, setCurrentFilter] = useState('')
+
 
     function deleteComment(rpid: number) {
         const newList = list.filter((item) => item.rpid !== rpid)
@@ -132,38 +210,18 @@ const App = () => {
                     </li>
                     <li className="nav-sort">
                         {/* highlight class name： active */}
-                        <span className={`nav-item ${currentFilter==='top'?'active':''}`} onClick={()=>sortList('top')}>Top</span>
-                        <span className={`nav-item ${currentFilter==='latest'?'active':''}`} onClick={()=>sortList('latest')}>Newest</span>
+                        <span className={`nav-item ${currentFilter === 'top' ? 'active' : ''}`}
+                              onClick={() => sortList('top')}>Top</span>
+                        <span className={`nav-item ${currentFilter === 'latest' ? 'active' : ''}`}
+                              onClick={() => sortList('latest')}>Newest</span>
                     </li>
                 </ul>
             </div>
 
             <div className="reply-wrap">
                 {/* comments */}
-                <div className="box-normal">
-                    {/* current logged in user profile */}
-                    <div className="reply-box-avatar">
-                        <div className="bili-avatar">
-                            <img className="bili-avatar-img" src={avatar} alt="Profile"/>
-                        </div>
-                    </div>
-                    <div className="reply-box-wrap">
-                        {/* comment */}
-                        <textarea
-                            className="reply-box-textarea"
-                            placeholder="tell something..."
-                            onChange={(event) => {
-                                console.log(event.target.value)
-                                setComment(event.target.value)
-                            }}
-                            value={comment}
-                        />
-                        {/* post button */}
-                        <div className="reply-box-send">
-                            <div className="send-text" onClick={postMessageHandler}>post</div>
-                        </div>
-                    </div>
-                </div>
+                {/*<StatefulPost list={list} setList={setList}/>*/}
+                <StatelessPost list={list} setList={setList}/>
                 {/* comment list */}
                 <div className="reply-list">
                     {/* comment item */}
