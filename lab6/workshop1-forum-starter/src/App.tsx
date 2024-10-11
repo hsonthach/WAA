@@ -1,49 +1,11 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import './App.scss'
 import avatar from './images/bozai.png'
 import {useRef} from 'react';
+import axios from 'axios';
 
 
 // Comment List data
-const defaultList = [
-    {
-        // comment id
-        rpid: 3,
-        // user info
-        user: {
-            uid: '13258165',
-            avatar: '',
-            uname: 'Jay Zhou',
-        },
-        // comment content
-        content: 'Nice, well done',
-        // created datetime
-        ctime: '2024-10-09T19:54:13.462Z',
-        like: 100,
-    },
-    {
-        rpid: 2,
-        user: {
-            uid: '36080105',
-            avatar: '',
-            uname: 'Song Xu',
-        },
-        content: 'I search for you thousands of times, from dawn till dusk.',
-        ctime: '2024-10-10T19:54:13.462Z',
-        like: 5,
-    },
-    {
-        rpid: 1,
-        user: {
-            uid: '30009257',
-            avatar,
-            uname: 'John',
-        },
-        content: 'I told my computer I needed a break... now it will not stop sending me vacation ads.',
-        ctime: '2024-10-08T19:54:13.462Z',
-        like: 10,
-    },
-]
 // current logged in user info
 const user = {
     // userid
@@ -157,11 +119,33 @@ function StatelessPost({list, setList}: { list: any; setList: any }) {
         </div>
     );
 }
+
+interface Item {
+    rpid: number,
+    user: {
+        uid: string,
+        avatar: string,
+        uname: string,
+    },
+    content: string,
+    ctime: string,
+    like: number,
+}
+
+const DEFAULT_DICT: Item[] = []
 const App = () => {
 
-    const [list, setList] = useState(defaultList)
+    const [list, setList] = useState(DEFAULT_DICT)
     const [comment, setComment] = useState('')
     const [currentFilter, setCurrentFilter] = useState('')
+    useEffect(() => {
+        axios.get('http://localhost:3000/list').then((res:{
+            data:Item[]
+        })=>{
+            console.log(res.data)
+            setList(res.data)
+        })
+    },[])
 
 
     function deleteComment(rpid: number) {
