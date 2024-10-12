@@ -22,6 +22,13 @@ const tabs = [
     {type: 'newest', text: 'Newest'},
 ]
 
+function formatTime(ctime: string) {
+    const time = new Date(ctime)
+    // to '10-18 08:15'
+    return `${time.getMonth() + 1}-${time.getDate()} ${time.getHours()}:${time.getMinutes()}`
+
+}
+
 function StatefulPost(props: { list: any, setList: any }) {
     const {list, setList} = props
     const [comment, setComment] = useState('')
@@ -133,6 +140,42 @@ interface Item {
 }
 
 const DEFAULT_DICT: Item[] = []
+
+function Comment(props: { item: Item, onClick: () => void }) {
+    return <div className="reply-item">
+        {/* profile */}
+        <div className="root-reply-avatar">
+            <div className="bili-avatar">
+                <img
+                    className="bili-avatar-img"
+                    alt=""
+                    src={props.item.user.avatar || avatar}
+                />
+            </div>
+        </div>
+
+        <div className="content-wrap">
+            {/* username */}
+            <div className="user-info">
+                <div className="user-name">{props.item.user.uname}</div>
+            </div>
+            {/* comment content */}
+            <div className="root-reply">
+                <span className="reply-content">{props.item.content}</span>
+                <div className="reply-info">
+                    {/* comment created time */}
+                    <span className="reply-time">{formatTime(props.item.ctime)}</span>
+                    {/* total likes */}
+                    <span className="reply-time">Like:{props.item.like}</span>
+                    <span className="delete-btn" onClick={props.onClick}>
+                    Delete
+                  </span>
+                </div>
+            </div>
+        </div>
+    </div>;
+}
+
 const App = () => {
 
     const [list, setList] = useState(DEFAULT_DICT)
@@ -175,12 +218,7 @@ const App = () => {
         setCurrentFilter(type)
     }
 
-    function formatTime(ctime: string) {
-        const time = new Date(ctime)
-        // to '10-18 08:15'
-        return `${time.getMonth() + 1}-${time.getDate()} ${time.getHours()}:${time.getMinutes()}`
 
-    }
 
     return (
         <div className="app">
@@ -203,48 +241,12 @@ const App = () => {
             </div>
 
             <div className="reply-wrap">
-                {/* comments */}
-                {/*<StatefulPost list={list} setList={setList}/>*/}
                 <StatelessPost list={list} setList={setList}/>
-                {/* comment list */}
                 <div className="reply-list">
                     {/* comment item */}
                     {list.map((item) => <div key={item.rpid}>
-                        <div className="reply-item">
-                            {/* profile */}
-                            <div className="root-reply-avatar">
-                                <div className="bili-avatar">
-                                    <img
-                                        className="bili-avatar-img"
-                                        alt=""
-                                        src={item.user.avatar || avatar}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="content-wrap">
-                                {/* username */}
-                                <div className="user-info">
-                                    <div className="user-name">{item.user.uname}</div>
-                                </div>
-                                {/* comment content */}
-                                <div className="root-reply">
-                                    <span className="reply-content">{item.content}</span>
-                                    <div className="reply-info">
-                                        {/* comment created time */}
-                                        <span className="reply-time">{formatTime(item.ctime)}</span>
-                                        {/* total likes */}
-                                        <span className="reply-time">Like:{item.like}</span>
-                                        <span className="delete-btn" onClick={() => deleteComment(item.rpid)}>
-                    Delete
-                  </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <Comment item={item} onClick={() => deleteComment(item.rpid)}/>
                     </div>)}
-
-
                 </div>
             </div>
         </div>
