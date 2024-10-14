@@ -8,6 +8,7 @@ import {Task} from "./Task";
 
 function App() {
     const [tasks, setTasks] = React.useState<Task[]>([]);
+    const [allTaskChecked, setAllTaskChecked] = React.useState<boolean>(false);
 
     useEffect(() => {
         fetch('http://localhost:3000/tasks').then((response) => {
@@ -16,6 +17,12 @@ function App() {
             setTasks(data);
         })
     },[])
+
+    useEffect(() => {
+        // update allTaskChecked if all tasks are checked
+        const checked = tasks.every((task) => task.done);
+        setAllTaskChecked(checked);
+    }, [tasks]);
 
 
     const finishedTask = tasks.filter((task) => task.done);
@@ -57,7 +64,16 @@ function App() {
                 <div className="todo-wrap">
                     <Header addTask={addTask}/>
                     <List tasks={tasks} deleteTask={deleteTask} changeTaskStatus={changeTaskStatus} />
-                    <Footer numerOfFinishTasked={finishedTask.length}  totalTasks={tasks.length} deleteFinishedTask={deleteFinishedTask}/>
+                    <Footer numerOfFinishTasked={finishedTask.length}  totalTasks={tasks.length} deleteFinishedTask={deleteFinishedTask}  allTaskChecked={allTaskChecked} setAllTaskChecked={(checked)=>{
+                        setAllTaskChecked(checked);
+                        const newTasks = tasks.map((task) => {
+                            return {
+                                ...task,
+                                done: checked
+                            }
+                        });
+                        setTasks(newTasks);
+                    }}/>
                 </div>
             </div>
         </div>
