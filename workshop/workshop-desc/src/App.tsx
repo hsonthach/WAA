@@ -5,6 +5,10 @@ import {Footer} from "./Footer";
 import {List} from "./List";
 import {Task} from "./Task";
 
+const randomID = ()=>{
+    return Math.floor(Math.random() * 10000);
+}
+
 
 function App() {
     const [tasks, setTasks] = React.useState<Task[]>([]);
@@ -23,7 +27,7 @@ function App() {
         const task: Task = {
             name: taskName,
             done: false,
-            id: tasks.length + 1
+            id: randomID()
         };
         setTasks([...tasks, task]);
     }
