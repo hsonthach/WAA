@@ -4,11 +4,13 @@ import {Task} from "./Task";
 
 interface ListProps {
     tasks: Task[],
-    deleteTask: (index: number) => void
+    deleteTask: (index: number) => void,
+    changeTaskStatus: (id: number, done: boolean) => void
 }
 
-export function List({tasks, deleteTask}: ListProps) {
+export function List({tasks, deleteTask, changeTaskStatus}: ListProps) {
     return <ul className="todo-main">
-        {tasks.map((task, index) => <Item key={index} name={task.name} deleteTask={deleteTask} id={task.id}/>)}
+        {tasks.map((task, index) => <Item key={index} name={task.name} deleteTask={deleteTask} id={task.id}
+                                          done={task.done} changeTaskStatus={changeTaskStatus}/>)}
     </ul>;
 }

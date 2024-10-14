@@ -11,6 +11,7 @@ function App() {
         {name: 'task1', done: false, id: 0},
         {name: 'task2', done: true, id: 1},
     ]);
+    const finishedTask = tasks.filter((task) => task.done);
 
     const addTask = (taskName: string) => {
         const task: Task = {
@@ -25,14 +26,26 @@ function App() {
         const newTasks = tasks.filter((task) => task.id !== index);
         setTasks(newTasks);
     }
-    console.log(tasks)
+
+    const changeTaskStatus = (id: number, done: boolean) => {
+        const newTasks = tasks.map((task) => {
+            if (task.id === id) {
+                return {
+                    ...task,
+                    done: done
+                }
+            }
+            return task;
+        });
+        setTasks(newTasks);
+    }
     return (
         <div className="App">
             <div className="todo-container">
                 <div className="todo-wrap">
                     <Header  addTask={addTask}/>
-                    <List tasks={tasks} deleteTask={deleteTask} />
-                    <Footer/>
+                    <List tasks={tasks} deleteTask={deleteTask} changeTaskStatus={changeTaskStatus} />
+                    <Footer numerOfFinishTasked={finishedTask.length}  totalTasks={tasks.length}/>
                 </div>
             </div>
         </div>
