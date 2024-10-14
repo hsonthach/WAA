@@ -5,20 +5,18 @@ interface FooterProps {
     totalTasks: number,
     deleteFinishedTask: () => void,
     setAllTaskChecked: (checked: boolean) => void,
-    allTaskChecked: boolean,
 }
 
 export function Footer({
                            numerOfFinishTasked,
                            totalTasks,
                            deleteFinishedTask,
-                           allTaskChecked,
                            setAllTaskChecked
                        }: FooterProps) {
+    const allTaskChecked = numerOfFinishTasked === totalTasks;
     return <div className="todo-footer">
         <label>
             <input type="checkbox" checked={allTaskChecked} onChange={(event) => {
-                setAllTaskChecked(event.target.checked);
                 setAllTaskChecked(event.target.checked);
             }}/>
         </label>

@@ -8,7 +8,6 @@ import {Task} from "./Task";
 
 function App() {
     const [tasks, setTasks] = React.useState<Task[]>([]);
-    const allTaskChecked = tasks.every((task) => task.done);
 
     useEffect(() => {
         fetch('http://localhost:3000/tasks').then((response) => {
@@ -69,7 +68,7 @@ function App() {
                     <Header addTask={addTask}/>
                     <List tasks={tasks} deleteTask={deleteTask} changeTaskStatus={changeTaskStatus}/>
                     <Footer numerOfFinishTasked={finishedTask.length} totalTasks={tasks.length}
-                            deleteFinishedTask={deleteFinishedTask} allTaskChecked={allTaskChecked}
+                            deleteFinishedTask={deleteFinishedTask}
                             setAllTaskChecked={toggleCheckedTasks}/>
                 </div>
             </div>
