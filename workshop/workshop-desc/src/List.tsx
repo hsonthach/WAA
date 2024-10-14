@@ -1,9 +1,12 @@
 import {Item} from "./Item";
 import React from "react";
 
-export function List() {
+interface ListProps {
+    tasks: {name: string, done: boolean}[];
+}
+
+export function List({tasks}: ListProps) {
     return <ul className="todo-main">
-        <Item name={'xxxxx'}/>
-        <Item name={'yyyyy'}/>
+        {tasks.map((task, index) => <Item key={index} name={task.name}/>)}
     </ul>;
 }
