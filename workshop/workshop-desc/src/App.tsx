@@ -39,13 +39,18 @@ function App() {
         });
         setTasks(newTasks);
     }
+
+    const deleteFinishedTask = () => {
+        const newTasks = tasks.filter((task) => !task.done);
+        setTasks(newTasks);
+    }
     return (
         <div className="App">
             <div className="todo-container">
                 <div className="todo-wrap">
                     <Header  addTask={addTask}/>
                     <List tasks={tasks} deleteTask={deleteTask} changeTaskStatus={changeTaskStatus} />
-                    <Footer numerOfFinishTasked={finishedTask.length}  totalTasks={tasks.length}/>
+                    <Footer numerOfFinishTasked={finishedTask.length}  totalTasks={tasks.length} deleteFinishedTask={deleteFinishedTask}/>
                 </div>
             </div>
         </div>
