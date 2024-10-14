@@ -1,0 +1,6 @@
+.btn-delete {
+    visibility: hidden;
+}
+li:hover .btn-delete {
+    visibility: visible;
+}

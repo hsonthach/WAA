@@ -17,7 +17,7 @@ export function Item({name, deleteTask, id, done, changeTaskStatus}: ItemProps) 
             }}/>
             <span>{name}</span>
         </label>
-        <button className="btn btn-danger" onClick={() => {
+        <button className="btn btn-danger btn-delete" onClick={() => {
             // delete task
             deleteTask(id);
         }}>Delete
