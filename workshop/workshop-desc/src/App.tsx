@@ -55,7 +55,7 @@ function App() {
         <div className="App">
             <div className="todo-container">
                 <div className="todo-wrap">
-                    <Header  addTask={addTask}/>
+                    <Header addTask={addTask}/>
                     <List tasks={tasks} deleteTask={deleteTask} changeTaskStatus={changeTaskStatus} />
                     <Footer numerOfFinishTasked={finishedTask.length}  totalTasks={tasks.length} deleteFinishedTask={deleteFinishedTask}/>
                 </div>
