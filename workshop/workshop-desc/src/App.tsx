@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {Header} from "./Header";
 import {Footer} from "./Footer";
@@ -7,10 +7,17 @@ import {Task} from "./Task";
 
 
 function App() {
-    const [tasks, setTasks] = React.useState<Task[]>([
-        {name: 'task1', done: false, id: 0},
-        {name: 'task2', done: true, id: 1},
-    ]);
+    const [tasks, setTasks] = React.useState<Task[]>([]);
+
+    useEffect(() => {
+        fetch('http://localhost:3000/tasks').then((response) => {
+            return response.json();
+        }).then((data) => {
+            setTasks(data);
+        })
+    },[])
+
+
     const finishedTask = tasks.filter((task) => task.done);
 
     const addTask = (taskName: string) => {
