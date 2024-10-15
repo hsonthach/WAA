@@ -1,7 +1,22 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
+import axios from "axios";
+
+interface User {
+  name: string;
+  avatar_url: string;
+}
 
 function App() {
+  const [key, setKey] = useState("hello");
+  const [users, setUsers] = useState<User[]>([]);
+  useEffect(() => {
+    axios.get(`https://api.github.com/search/users?q=${key}`).then(res=>{
+        console.log(res.data);
+        setUsers(res.data.items);
+    })
+  }, []);
+  console.log(users)
   return (
       <div className="App">
         <div className="container">
