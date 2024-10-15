@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import './App.css';
 import axios from "axios";
+import {UserCard} from "./UserCard";
 
 interface User {
     id: string;
@@ -9,20 +10,6 @@ interface User {
     profileUrl: string;
 }
 
-interface UserCardProps {
-    avatar: string,
-    name: string,
-    profileUrl: string
-}
-
-function UserCard({avatar, name, profileUrl}: UserCardProps) {
-    return <div className="card">
-        <a href={profileUrl} target="_blank" rel="noopener noreferrer">
-            <img src={avatar} alt="reactjs" style={{width: "100px"}}/>
-        </a>
-        <p className="card-text">{name}</p>
-    </div>;
-}
 
 function App() {
     const [key, setKey] = useState("");
