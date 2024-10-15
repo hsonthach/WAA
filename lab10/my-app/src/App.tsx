@@ -14,9 +14,11 @@ interface User {
 function App() {
     const [key, setKey] = useState("");
     const [users, setUsers] = useState<User[]>([]);
+    const [loading, setLoading] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
     useEffect(() => {
         if (!key) return;
+        setLoading(true);
         axios.get(`https://api.github.com/search/users?q=${key}`).then(res => {
             console.log(res.data);
             const users = res.data.items.map((item: any) => {
@@ -27,6 +29,7 @@ function App() {
                     id: item.id
                 }
             })
+            setLoading(false);
             setUsers(users);
         })
     }, [key]);
@@ -36,14 +39,19 @@ function App() {
                 <section className="jumbotron">
                     <h3 className="jumbotron-heading">Search Github Users</h3>
                     <div>
-                        <input type="text" placeholder="enter the name you search" ref={inputRef} />&nbsp;
-                        <button onClick={()=>{
+                        <input type="text" placeholder="enter the name you search" ref={inputRef}/>&nbsp;
+                        <button onClick={() => {
                             setKey(inputRef.current?.value || "");
-                        }}>Search</button>
+                        }}>Search
+                        </button>
                     </div>
                 </section>
                 <div className="row">
-                    {users.map(user => <UserCard key={user.id} name={user.name} avatar={user.avatar_url} profileUrl={user.profileUrl}/>)}
+                    {
+                        loading ? <div className="card">Loading...</div> : users.map(user => <UserCard key={user.id} name={user.name}
+                                                                                      avatar={user.avatar_url}
+                                                                                      profileUrl={user.profileUrl}/>)
+                    }
                 </div>
             </div>
         </div>
