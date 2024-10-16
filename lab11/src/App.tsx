@@ -1,16 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
 import {NavLink, Route, Routes, useParams} from "react-router-dom";
 
+interface Post {
+    id: number,
+    title: string
+}
 
-let posts = [
+
+
+const DEFAULT_POSTS: Post[] = [
     {id: 1, title: "Post 1"},
     {id: 2, title: "Post 2"},
     {id: 3, title: "Post 3"},
 ]
 
-function PostIndex() {
+interface PostIndexProps {
+    posts: Post[]
+}
+
+interface PostProps {
+    id: string,
+    title: string
+}
+
+export function PostIndex({posts}: PostIndexProps) {
     return <div>
         {posts.map((post) => {
             return <div key={post.id}>
@@ -20,11 +34,6 @@ function PostIndex() {
     </div>
 }
 
-interface PostProps {
-    id: string,
-    title: string
-}
-
 function Post({id, title}: PostProps) {
     return <div>
         {title} - {id}
@@ -32,7 +41,11 @@ function Post({id, title}: PostProps) {
     </div>
 }
 
-function PostShow() {
+interface PostShowProps {
+    posts: Post[]
+}
+
+function PostShow({posts}: PostShowProps) {
     const params = useParams();
     const id = params.id;
     const post = posts.find((post) => post.id.toString() === id);
@@ -53,15 +66,20 @@ function NotFound() {
     </div>
 }
 
-function PostEdit() {
+interface PostEditProps {
+    posts: Post[],
+    setPosts: (posts: Post[]) => void
+}
+
+function PostEdit({posts, setPosts}: PostEditProps) {
     const params = useParams();
     const id = params.id;
-    const post = posts.find((post) => post.id.toString() === id);
-    return <form onSubmit={(event)=>{
+    const post = DEFAULT_POSTS.find((post) => post.id.toString() === id);
+    return <form onSubmit={(event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         const title = formData.get("title");
-        posts = posts.map((post) => {
+        const newPosts = posts.map((post) => {
             if (post.id.toString() === id) {
                 return {
                     id: post.id,
@@ -70,6 +88,7 @@ function PostEdit() {
             }
             return post;
         })
+        setPosts(newPosts);
     }}>
         <input type="text" name="title" defaultValue={post?.title}/>
         <button type="submit">Save</button>
@@ -77,15 +96,16 @@ function PostEdit() {
 }
 
 function App() {
+    const [posts, setPosts] = useState(DEFAULT_POSTS);
     return (
         <div className="App">
             <nav>
                 <NavLink to="/posts/" end>Posts</NavLink>
             </nav>
             <Routes>
-                <Route path="/posts/" element={<PostIndex/>}/>
-                <Route path="/posts/:id" element={<PostShow/>}/>
-                <Route path={"/posts/:id/edit"} element={<PostEdit/>}/>
+                <Route path="/posts/" element={<PostIndex posts={posts}/>}/>
+                <Route path="/posts/:id" element={<PostShow posts={posts}/>}/>
+                <Route path={"/posts/:id/edit"} element={<PostEdit posts={posts} setPosts={setPosts}/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
         </div>
