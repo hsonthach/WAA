@@ -1,8 +1,9 @@
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 import './App.scss'
 import avatar from './images/bozai.png'
-import {useRef} from 'react';
+import { useRef } from 'react';
 import axios from 'axios';
+import React from 'react';
 
 
 // Comment List data
@@ -18,8 +19,8 @@ const user = {
 
 // Nav Tab
 const tabs = [
-    {type: 'hot', text: 'Top'},
-    {type: 'newest', text: 'Newest'},
+    { type: 'hot', text: 'Top' },
+    { type: 'newest', text: 'Newest' },
 ]
 
 function formatTime(ctime: string) {
@@ -30,12 +31,12 @@ function formatTime(ctime: string) {
 }
 
 function StatefulPost(props: { list: any, setList: any }) {
-    const {list, setList} = props
+    const { list, setList } = props
     const [comment, setComment] = useState('')
     const postMessageHandler = (event: any) => {
         const newList = [...list]
 
-// 11-13 11:29
+        // 11-13 11:29
         const time = new Date().toISOString()
         newList.unshift({
             rpid: list.length + 1,
@@ -57,7 +58,7 @@ function StatefulPost(props: { list: any, setList: any }) {
         {/* current logged in user profile */}
         <div className="reply-box-avatar">
             <div className="bili-avatar">
-                <img className="bili-avatar-img" src={avatar} alt="Profile"/>
+                <img className="bili-avatar-img" src={avatar} alt="Profile" />
             </div>
         </div>
         <div className="reply-box-wrap">
@@ -80,7 +81,7 @@ function StatefulPost(props: { list: any, setList: any }) {
 }
 
 
-function StatelessPost({list, setList}: { list: any; setList: any }) {
+function StatelessPost({ list, setList }: { list: any; setList: any }) {
     const commentRef = useRef<HTMLTextAreaElement>(null);
 
     const postMessageHandler = (event: any) => {
@@ -108,7 +109,7 @@ function StatelessPost({list, setList}: { list: any; setList: any }) {
         <div className="box-normal">
             <div className="reply-box-avatar">
                 <div className="bili-avatar">
-                    <img className="bili-avatar-img" src={avatar} alt="Profile"/>
+                    <img className="bili-avatar-img" src={avatar} alt="Profile" />
                 </div>
             </div>
             <div className="reply-box-wrap">
@@ -168,13 +169,19 @@ function Comment(props: { item: Item, onClick: () => void }) {
                     {/* total likes */}
                     <span className="reply-time">Like:{props.item.like}</span>
                     <span className="delete-btn" onClick={props.onClick}>
-                    Delete
-                  </span>
+                        Delete
+                    </span>
                 </div>
             </div>
         </div>
     </div>;
 }
+
+const ThemeContext = React.createContext({
+    theme: 'light',
+    toggleTheme: () => { }
+});
+
 
 const App = () => {
 
@@ -182,13 +189,13 @@ const App = () => {
     const [comment, setComment] = useState('')
     const [currentFilter, setCurrentFilter] = useState('')
     useEffect(() => {
-        axios.get('http://localhost:3000/list').then((res:{
-            data:Item[]
-        })=>{
+        axios.get('http://localhost:3000/list').then((res: {
+            data: Item[]
+        }) => {
             console.log(res.data)
             setList(res.data)
         })
-    },[])
+    }, [])
 
 
     function deleteComment(rpid: number) {
@@ -218,38 +225,45 @@ const App = () => {
         setCurrentFilter(type)
     }
 
-
+    const [theme, setTheme] = useState('light');
 
     return (
-        <div className="app">
-            {/* Nav Tab */}
-            <div className="reply-navigation">
-                <ul className="nav-bar">
-                    <li className="nav-title">
-                        <span className="nav-title-text">Comments</span>
-                        {/* Like */}
-                        <span className="total-reply">{totalLike}</span>
-                    </li>
-                    <li className="nav-sort">
-                        {/* highlight class name： active */}
-                        <span className={`nav-item ${currentFilter === 'top' ? 'active' : ''}`}
-                              onClick={() => sortList('top')}>Top</span>
-                        <span className={`nav-item ${currentFilter === 'latest' ? 'active' : ''}`}
-                              onClick={() => sortList('latest')}>Newest</span>
-                    </li>
-                </ul>
-            </div>
+        <ThemeContext.Provider value={{
+            theme,
+            toggleTheme: () => {
+                setTheme(theme === 'light' ? 'dark' : 'light');
+            },
+        }}>
+            <div className="app">
+                {/* Nav Tab */}
+                <div className="reply-navigation">
+                    <ul className="nav-bar">
+                        <li className="nav-title">
+                            <span className="nav-title-text">Comments</span>
+                            {/* Like */}
+                            <span className="total-reply">{totalLike}</span>
+                        </li>
+                        <li className="nav-sort">
+                            {/* highlight class name： active */}
+                            <span className={`nav-item ${currentFilter === 'top' ? 'active' : ''}`}
+                                onClick={() => sortList('top')}>Top</span>
+                            <span className={`nav-item ${currentFilter === 'latest' ? 'active' : ''}`}
+                                onClick={() => sortList('latest')}>Newest</span>
+                        </li>
+                    </ul>
+                </div>
 
-            <div className="reply-wrap">
-                <StatelessPost list={list} setList={setList}/>
-                <div className="reply-list">
-                    {/* comment item */}
-                    {list.map((item) => <div key={item.rpid}>
-                        <Comment item={item} onClick={() => deleteComment(item.rpid)}/>
-                    </div>)}
+                <div className="reply-wrap">
+                    <StatelessPost list={list} setList={setList} />
+                    <div className="reply-list">
+                        {/* comment item */}
+                        {list.map((item) => <div key={item.rpid}>
+                            <Comment item={item} onClick={() => deleteComment(item.rpid)} />
+                        </div>)}
+                    </div>
                 </div>
             </div>
-        </div>
+        </ThemeContext.Provider>
     )
 }
 
