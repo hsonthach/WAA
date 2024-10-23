@@ -1,21 +1,27 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from './app/store';
-import {addTodo, removeTodo, toggleTodo} from './features/todo/todoSlice';
+import {addTodo, removeTodo, Todo, toggleTodo} from './features/todo/todoSlice';
 import './App.css';
 import {TodoCard} from "./components/TodoCard";
+import {createTodoApi} from "./service/todoService";
 
 const App: React.FC = () => {
   const [text, setText] = useState('');
   const todos = useSelector((state: RootState) => state.todo.todos);
   const dispatch = useDispatch();
 
-  const handleAddTodo = () => {
-    if (text.trim()) {
-      dispatch(addTodo(text));
-      setText('');
-    }
-  };
+    const handleAddTodo = async () => {
+        try {
+            if (text.trim()) {
+                const newTodo: Todo = await createTodoApi(text);
+                dispatch(addTodo(newTodo)); // Dispatch sync action to add a todo
+                setText('');
+            }
+        } catch (error) {
+            console.error('Failed to add todo:', error);
+        }
+    };
 
   return (
     <div className="App min-h-screen bg-gray-100 flex flex-col items-center p-4">

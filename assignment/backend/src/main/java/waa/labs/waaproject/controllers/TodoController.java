@@ -20,6 +20,11 @@ public class TodoController {
         return todoService.getTodos(pagination);
     }
 
+    @PostMapping
+    public Todo createToDo(@RequestBody Todo toDo) {
+        return todoService.saveOrUpdate(toDo);
+    }
+
     @PatchMapping("/{id}")
     public ResponseEntity<Todo> updateTodo(@RequestBody Todo todo, @PathVariable long id) {
         Todo updatedTodo = todoService.updateTodoById(todo, id);
