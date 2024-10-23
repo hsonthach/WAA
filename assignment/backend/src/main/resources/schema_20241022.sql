@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `waaproject` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `waaproject`;
+CREATE DATABASE  IF NOT EXISTS `cs545` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `cs545`;
 -- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
 --
--- Host: localhost    Database: waaproject
+-- Host: localhost    Database: cs545
 -- ------------------------------------------------------
 -- Server version	8.4.2
 
@@ -51,8 +51,8 @@ DROP TABLE IF EXISTS `todo`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `todo` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `description` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `completed` boolean DEFAULT FALSE,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

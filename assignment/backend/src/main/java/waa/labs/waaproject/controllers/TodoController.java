@@ -1,8 +1,6 @@
 package waa.labs.waaproject.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import waa.labs.waaproject.models.Todo;
 import waa.labs.waaproject.services.ITodoService;
 
@@ -10,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/todos")
+
 public class TodoController {
 
     private final ITodoService todoService;
@@ -20,8 +19,28 @@ public class TodoController {
     }
 
     @GetMapping
-    public List<Todo> getAllTodos() {
-        System.out.println("Hello Todos");
-        return List.of();
+    public List<Todo> getAllToDos() {
+        return todoService.getAllToDos();
+    }
+
+    @GetMapping("/{id}")
+    public Todo getTodoById(@PathVariable Long id) {
+        return todoService.getToDoById(id);
+    }
+
+    @PostMapping
+    public Todo createToDo(@RequestBody Todo toDo) {
+        return todoService.saveOrUpdate(toDo);
+    }
+
+    @PutMapping("/{id}")
+    public Todo updateToDo(@PathVariable Long id, @RequestBody Todo toDo) {
+        toDo.setId(id);
+        return todoService.saveOrUpdate(toDo);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteToDoById(@PathVariable Long id) {
+        todoService.deleteToDoById(id);
     }
 }
