@@ -1,9 +1,13 @@
 import {ChangeEvent, FormEvent, useState} from "react";
 import axios from "axios";
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "../../app/store";
+import {loginSuccess} from "./authSlice";
 
 function LoginView() {
 
     const [formData, setFormData] = useState({email: '', password: ''});
+    const dispatch = useDispatch<AppDispatch>();
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
@@ -14,11 +18,22 @@ function LoginView() {
         e.preventDefault();
         console.log(formData);
         try {
-            var res = await axios('http://localhost:8080/auth/login', {
+            var response = await axios('http://localhost:8080/auth/login', {
                 method: 'POST',
                 data: formData
             });
-            console.log(res);
+            console.log(response);
+            const token = response?.data?.token || '';
+            if (token) {
+                // Save the token to Redux
+                dispatch(loginSuccess(token));
+
+                // Optionally save to localStorage or sessionStorage for persistence
+                localStorage.setItem('jwtToken', token);
+
+                // Add token to Axios common headers for future requests
+                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            }
         } catch (err: any) {
             console.log(err.message);
         }
