@@ -9,6 +9,7 @@ import {
   removeTodo,
   Todo,
   clearTodo,
+  deleteTodo,
 } from "./features/todo/todoSlice";
 import { TodoCard } from "./components/TodoCard";
 import { createTodoApi } from "./service/todoService";
@@ -68,7 +69,7 @@ const App: React.FC = () => {
           >
             <TodoCard
               todo={todo}
-              removeTodo={() => dispatch(removeTodo(todo.id))}
+              removeTodo={() => dispatch(deleteTodo(todo.id))}
             />
           </li>
         ))}

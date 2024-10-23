@@ -65,10 +65,7 @@ function EditTodo({ todo, setEditting }: EditTodoProps) {
   );
 }
 
-export function TodoCard(props: {
-  todo: Todo;
-  removeTodo: () => PayloadAction<number, "todo/removeTodo">;
-}) {
+export function TodoCard(props: { todo: Todo; removeTodo: () => void }) {
   const [editting, setEditting] = React.useState(false);
   if (editting) {
     return <EditTodo todo={props.todo} setEditting={setEditting} />;

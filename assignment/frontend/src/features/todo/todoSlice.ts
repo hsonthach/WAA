@@ -61,6 +61,27 @@ export const getTodos = createAsyncThunk(
   }
 );
 
+export const deleteTodo = createAsyncThunk(
+  "todos/deleteTodo",
+  async (id: number) => {
+    const token = localStorage.getItem("jwtToken");
+
+    const response = await fetch(`${baseUrl}/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete todo");
+    }
+
+    return id; // Return the id of the deleted todo
+  }
+);
+
 const todoSlice = createSlice({
   name: "todo",
   initialState,
@@ -116,6 +137,19 @@ const todoSlice = createSlice({
       .addCase(getTodos.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "Failed to get todos";
+      });
+
+    builder
+      .addCase(deleteTodo.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(deleteTodo.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.todos = state.todos.filter((todo) => todo.id !== action.payload);
+      })
+      .addCase(deleteTodo.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || "Failed to delete todo";
       });
   },
 });
