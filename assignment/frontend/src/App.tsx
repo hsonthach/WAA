@@ -1,40 +1,19 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from './app/store';
-import {addTodo, toggleTodo, removeTodo, setTodos} from './features/todo/todoSlice';
+import { addTodo, toggleTodo, removeTodo } from './features/todo/todoSlice';
 import './App.css';
-import {createTodoApi, fetchTodosFromApi} from './service/todoService'
-import {loginUser, setAuthToken} from './service/authService'
-import Todo from "./Todo";
 
 const App: React.FC = () => {
   const [text, setText] = useState('');
   const todos = useSelector((state: RootState) => state.todo.todos);
   const dispatch = useDispatch();
 
-    useEffect(() => {
-        const loadData = async () => {
-            try {
-                const fetchedTodos = await fetchTodosFromApi();
-                dispatch(setTodos(fetchedTodos));
-            } catch (err) {
-                console.error('Failed to fetch data:', err);
-            }
-        };
-
-        loadData();
-    }, [dispatch]);
-
-  const handleAddTodo = async () => {
-      try {
-          if (text.trim()) {
-              const newTodo: Todo = await createTodoApi(text);
-              dispatch(addTodo(newTodo)); // Dispatch sync action to add a todo
-              setText('');
-          }
-      } catch (error) {
-          console.error('Failed to add todo:', error);
-      }
+  const handleAddTodo = () => {
+    if (text.trim()) {
+      dispatch(addTodo(text));
+      setText('');
+    }
   };
 
   return (
