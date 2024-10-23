@@ -78,12 +78,7 @@ const AppWrapper = () => {
     return (
         <Routes>
             {/* Redirect to main page if already authenticated */}
-            {/*<Route path="/login">*/}
-            {/*    {isAuthenticated ? <Navigate to="/"/> : <LoginView/>}*/}
-            {/*</Route>*/}
-            {/*<Route path="/login" element={<LoginView/>}/>*/}
             <Route path="/login" element={isAuthenticated ? <Navigate to="/"/> : <LoginView/>}/>
-
 
             {/* Protected route */}
             <Route path="/" element={
@@ -91,13 +86,6 @@ const AppWrapper = () => {
                     <App/>
                 </AuthorizedRoute>
             }/>
-
-            {/*<Route path="/" element={<AuthorizedRoute element={<App/>}/>}/>*/}
-            {/*<AuthorizedRoute path="/" element={<App/>}/>*/}
-            {/*<AuthorizedRoute path="/todos" element={<Todos/>}>*/}
-            {/*    <AuthorizedRoute index element={<Todos/>} />*/}
-            {/*    <AuthorizedRoute path=":id" element={<Todo/>}/>*/}
-            {/*</AuthorizedRoute>*/}
 
             {/* Other routes can be added here */}
         </Routes>
