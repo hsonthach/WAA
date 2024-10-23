@@ -1,7 +1,8 @@
-import { Todo, updateTodo } from "../features/todo/todoSlice";
+import { updateTodo } from "../features/todo/todoSlice";
 import { PayloadAction } from "@reduxjs/toolkit";
 import React from "react";
 import { useDispatch } from "react-redux";
+import {Todo} from "../types/Todo";
 
 interface EditTodoProps {
   todo: Todo;

@@ -1,5 +1,6 @@
 // Create a new todo
-import { Todo } from "../features/todo/todoSlice";
+
+import {Todo} from "../types/Todo";
 
 const baseUrl = "http://localhost:8080";
 

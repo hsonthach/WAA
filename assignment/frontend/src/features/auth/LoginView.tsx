@@ -2,13 +2,14 @@ import {ChangeEvent, FormEvent, useState} from "react";
 import axios from "axios";
 import {useDispatch} from "react-redux";
 import {useNavigate} from 'react-router-dom';
-import {AppDispatch} from "../../app/store";
+import {AppDispatch, useAppDispatch} from "../../app/store";
 import {loginSuccess} from "./authSlice";
 
 function LoginView() {
 
     const [formData, setFormData] = useState({email: '', password: ''});
     const dispatch = useDispatch<AppDispatch>();
+    // const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -18,13 +19,13 @@ function LoginView() {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        console.log(formData);
+        // console.log(formData);
         try {
             var response = await axios('http://localhost:8080/auth/login', {
                 method: 'POST',
                 data: formData
             });
-            console.log(response);
+            // console.log(response);
             const token = response?.data?.token || '';
             if (token) {
                 // Save the token to Redux
