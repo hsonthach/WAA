@@ -38,6 +38,39 @@ const initialState: TodoState = {
 };
 
 const baseUrl = "http://localhost:8080/todos";
+const getHeaders = () => {
+  const token = localStorage.getItem('jwtToken');
+  console.log("Token used in headers:", token);
+  return {
+    'Content-Type': 'application/json',
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
+};
+
+export const createTodo = createAsyncThunk<Todo, string>(
+    "todos/createTodo",
+    async (text: string): Promise<Todo> => {
+      try {
+        // Perform the POST request using Axios
+        const response = await axios.post(
+            `${baseUrl}`,
+            { name: text },
+            { headers: getHeaders() }
+        );
+
+        // Return the newly created Todo based on response data
+        return {
+          id: response.data.id,
+          name: response.data.name,
+          completed: response.data.completed,
+          description: response.data.description,
+        };
+      } catch (error) {
+        console.error("Error creating todo:", error);
+        throw new Error("Failed to create todo");
+      }
+    }
+);
 
 // Async thunk for updating a todo
 export const updateTodo = createAsyncThunk(
@@ -88,6 +121,20 @@ const todoSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder
+        .addCase(createTodo.pending, (state) => {
+          state.status = 'loading';
+          state.error = null;
+        })
+        .addCase(createTodo.fulfilled, (state, action: PayloadAction<Todo>) => {
+          state.status = 'succeeded';
+          state.todos.push(action.payload);
+        })
+        .addCase(createTodo.rejected, (state, action) => {
+          state.status = 'failed';
+          state.error = action.error.message || "Failed to create todo";
+        });
+
     builder
       .addCase(updateTodo.pending, (state,action) => {
         state.status = "loading";

@@ -8,10 +8,9 @@ import {
   getTodos,
   removeTodo,
   Todo,
-  clearTodo,
+  clearTodo, createTodo,
 } from "./features/todo/todoSlice";
 import { TodoCard } from "./components/TodoCard";
-import { createTodoApi } from "./service/todoService";
 import { loginSuccess } from "./features/auth/authSlice";
 import AuthorizedRoute from "./components/AuthorizedRoute";
 import "./App.css";
@@ -27,8 +26,7 @@ const App: React.FC = () => {
   const handleAddTodo = async () => {
     try {
       if (text.trim()) {
-        const newTodo: Todo = await createTodoApi(text);
-        dispatch(addTodo(newTodo)); // Dispatch sync action to add a todo
+        dispatch(createTodo(text)); // Dispatch sync action to add a todo
         setText("");
       }
     } catch (error) {
