@@ -8,7 +8,9 @@ import {
   getTodos,
   removeTodo,
   Todo,
-  clearTodo, createTodo,
+  clearTodo,
+  createTodo,
+  deleteTodo,
 } from "./features/todo/todoSlice";
 import { TodoCard } from "./components/TodoCard";
 import { loginSuccess } from "./features/auth/authSlice";
@@ -66,7 +68,7 @@ const App: React.FC = () => {
           >
             <TodoCard
               todo={todo}
-              removeTodo={() => dispatch(removeTodo(todo.id))}
+              removeTodo={() => dispatch(deleteTodo(todo.id))}
             />
           </li>
         ))}
