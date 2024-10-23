@@ -5,7 +5,7 @@ export interface Todo {
   id: number;
   name: string;
   completed: boolean;
-  description?: string;
+  description: string;
 }
 
 export interface GetTodoParam {
@@ -42,12 +42,17 @@ const baseUrl = "http://localhost:8080/todos";
 // Async thunk for updating a todo
 export const updateTodo = createAsyncThunk(
   "todos/updateTodo",
-  async (updatedTodo: Todo) => {
-    const response = await axios.patch(
+  async (updatedTodo: {
+    id: number;
+    name: string;
+    description: string;
+  }) => {
+    axios.patch(
       `${baseUrl}/${updatedTodo.id}`,
       updatedTodo
     );
-    return response.data;
+    // update todo without waiting for response
+    return updatedTodo;
   }
 );
 
@@ -84,17 +89,19 @@ const todoSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(updateTodo.pending, (state) => {
+      .addCase(updateTodo.pending, (state,action) => {
         state.status = "loading";
+        // update todo right away
+        const { id, name, description } = action.meta.arg;
+        const todo = state.todos.find((todo) => todo.id === id);
+        if (todo) {
+          todo.name = name;
+          todo.description = description;
+        }
       })
       .addCase(updateTodo.fulfilled, (state, action) => {
         state.status = "succeeded";
-        const index = state.todos.findIndex(
-          (todo) => todo.id === action.payload.id
-        );
-        if (index !== -1) {
-          state.todos[index] = action.payload;
-        }
+
       })
       .addCase(updateTodo.rejected, (state, action) => {
         state.status = "failed";

@@ -34,20 +34,14 @@ function EditTodo({ todo, setEditting }: EditTodoProps) {
       />
       <button
         onClick={() => {
-          setLoading(true);
-          console.log(todo);
           dispatch(
             updateTodo({
               id: todo.id,
               name: nameRef.current?.value || todo.name,
               description: descriptionRef.current?.value || todo.description,
-              completed: todo.completed,
             }) as any
-          ).then(() => {
-            // close edit mode
-            setEditting(false);
-            setLoading(false);
-          });
+          )
+         setEditting(false);
         }}
         className="bg-blue-500 text-white p-1 px-3 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mr-3"
       >
@@ -77,6 +71,7 @@ export function TodoCard(props: {
     <>
       <div>
         <h3>{props.todo.name}</h3>
+        <p>{props.todo.description}</p>
       </div>
       <div>
         <button

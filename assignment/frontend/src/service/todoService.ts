@@ -12,5 +12,5 @@ export const createTodoApi = async (text: string): Promise<Todo> => {
     throw new Error("Failed to create todo");
   }
   const data = await response.json();
-  return { id: data.id, name: data.title, completed: data.completed };
+  return { id: data.id, name: data.title, completed: data.completed, description: "" };
 };
