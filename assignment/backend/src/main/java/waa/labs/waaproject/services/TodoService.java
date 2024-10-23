@@ -49,4 +49,9 @@ public class TodoService implements ITodoService {
             page.getTotalPages()
         );
     }
+
+    @Override
+    public Todo saveOrUpdate(Todo toDo) {
+        return todoRepository.save(toDo);
+    }
 }
