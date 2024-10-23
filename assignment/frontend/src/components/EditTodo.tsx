@@ -11,10 +11,16 @@ export function EditTodo({ todo, setEditting }: EditTodoProps) {
     const nameRef = React.useRef<HTMLInputElement>(null);
     const descriptionRef = React.useRef<HTMLTextAreaElement>(null);
     const dispatch = useDispatch();
+    const [isFadingOut, setIsFadingOut] = React.useState(false);
+
+    const handleCancel = () => {
+        setIsFadingOut(true);
+        setTimeout(() => setEditting(false), 500); // Match the duration of the fade-out animation
+    };
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="bg-white p-6 rounded-lg shadow-lg w-1/2">
+            <div className={`bg-white p-6 rounded-lg shadow-lg w-1/2 ${isFadingOut ? 'fade-out' : 'fade-in'}`}>
                 <h2 className="text-2xl mb-4">Edit Todo</h2>
                 <input
                     type="text"
@@ -47,9 +53,7 @@ export function EditTodo({ todo, setEditting }: EditTodoProps) {
                     </button>
                     <button
                         className="bg-red-500 text-white p-2 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
-                        onClick={() => {
-                            setEditting(false);
-                        }}
+                        onClick={handleCancel}
                     >
                         Cancel
                     </button>
