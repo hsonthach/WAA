@@ -37,7 +37,7 @@ public class TodoService implements ITodoService {
 
     @Override
     public PageHolder<Todo> getTodos(Pagination pagination) {
-        Sort sorter = Sort.by(Sort.Direction.ASC, "name");
+        Sort sorter = Sort.by(Sort.Direction.ASC, "id");
         if (Objects.nonNull(pagination.getSortBy())) {
             sorter = Sort.by(Sort.Direction.ASC, pagination.getSortBy());
         }
