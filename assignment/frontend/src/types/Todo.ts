@@ -2,7 +2,7 @@ export interface Todo {
     id: number;
     name: string;
     completed: boolean;
-    description?: string;
+    description: string;
 }
 
 export interface GetTodoParam {

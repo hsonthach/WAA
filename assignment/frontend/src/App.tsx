@@ -8,15 +8,14 @@ import {
     getTodos,
     removeTodo,
     clearTodo,
+    createTodo,
+    deleteTodo,
 } from "./features/todo/todoSlice";
 import {TodoCard} from "./components/TodoCard";
-import {createTodoApi} from "./service/todoService";
 import {loginSuccess} from "./features/auth/authSlice";
 import AuthorizedRoute from "./components/AuthorizedRoute";
 import "./App.css";
 import LoginView from "./features/auth/LoginView";
-import {Todo} from "./types/Todo";
-import Users from "./features/user/Users";
 
 const App: React.FC = () => {
     const [text, setText] = useState("");
@@ -28,8 +27,7 @@ const App: React.FC = () => {
     const handleAddTodo = async () => {
         try {
             if (text.trim()) {
-                const newTodo: Todo = await createTodoApi(text);
-                dispatch(addTodo(newTodo)); // Dispatch sync action to add a todo
+                dispatch(createTodo(text)); // Dispatch sync action to add a todo
                 setText("");
             }
         } catch (error) {
@@ -69,7 +67,7 @@ const App: React.FC = () => {
                     >
                         <TodoCard
                             todo={todo}
-                            removeTodo={() => dispatch(removeTodo(todo.id))}
+                            removeTodo={() => dispatch(deleteTodo(todo.id))}
                         />
                     </li>
                 ))}
@@ -96,7 +94,7 @@ const AppWrapper = () => {
     // Check if token exists when the app starts
     useEffect(() => {
         const token = localStorage.getItem("jwtToken");
-        // console.log("token: ", token);
+        console.log("token: ", token);
         if (token) {
             // If token exists, dispatch login success and set the token for future API requests
             dispatch(loginSuccess(token));
@@ -118,14 +116,6 @@ const AppWrapper = () => {
                 element={
                     <AuthorizedRoute>
                         <App/>
-                    </AuthorizedRoute>
-                }
-            />
-            <Route
-                path="/users"
-                element={
-                    <AuthorizedRoute>
-                        <Users/>
                     </AuthorizedRoute>
                 }
             />
