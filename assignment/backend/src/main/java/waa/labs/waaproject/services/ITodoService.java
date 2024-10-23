@@ -8,4 +8,5 @@ public interface ITodoService {
     Todo updateTodoById(Todo todo, long id);
     PageHolder<Todo> getTodos(Pagination pagination);
     Todo saveOrUpdate(Todo toDo);
+    void deleteTodo(long id);
 }
