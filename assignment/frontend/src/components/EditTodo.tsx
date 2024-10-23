@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useDispatch } from "react-redux";
 import { Todo, updateTodo } from "../features/todo/todoSlice";
 
@@ -17,6 +17,19 @@ export function EditTodo({ todo, setEditting }: EditTodoProps) {
         setIsFadingOut(true);
         setTimeout(() => setEditting(false), 500); // Match the duration of the fade-out animation
     };
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+                handleCancel();
+            }
+        };
+
+        document.addEventListener("keydown", handleKeyDown);
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown);
+        };
+    }, []);
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
