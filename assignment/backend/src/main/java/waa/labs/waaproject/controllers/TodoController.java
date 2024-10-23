@@ -24,4 +24,14 @@ public class TodoController {
         System.out.println("Hello Todos");
         return List.of();
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Todo> updateTodo(@RequestBody Todo todo, @PathVariable long id) {
+        Todo updatedTodo = todoService.updateTodoById(todo, id);
+
+        if (updatedTodo == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updatedTodo);
+    }
 }
