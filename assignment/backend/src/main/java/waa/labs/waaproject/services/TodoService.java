@@ -54,4 +54,12 @@ public class TodoService implements ITodoService {
     public Todo saveOrUpdate(Todo toDo) {
         return todoRepository.save(toDo);
     }
+
+    @Override
+    public void deleteTodo(long id) {
+        Todo removedTodo = todoRepository.findById(id).orElse(null);
+        if (removedTodo != null) {
+            todoRepository.deleteById(id);
+        }
+    }
 }
