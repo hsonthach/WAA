@@ -7,4 +7,5 @@ import waa.labs.waaproject.models.Pagination;
 public interface ITodoService {
     Todo updateTodoById(Todo todo, long id);
     PageHolder<Todo> getTodos(Pagination pagination);
+    Todo saveOrUpdate(Todo toDo);
 }
