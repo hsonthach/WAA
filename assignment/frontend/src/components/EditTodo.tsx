@@ -1,13 +1,14 @@
 import React, {useEffect} from "react";
-import { useDispatch } from "react-redux";
-import { Todo, updateTodo } from "../features/todo/todoSlice";
+import {useDispatch} from "react-redux";
+import {updateTodo} from "../features/todo/todoSlice";
+import {Todo} from "../types/Todo";
 
 interface EditTodoProps {
     todo: Todo;
     setEditting: (value: ((prevState: boolean) => boolean) | boolean) => void;
 }
 
-export function EditTodo({ todo, setEditting }: EditTodoProps) {
+export function EditTodo({todo, setEditting}: EditTodoProps) {
     const nameRef = React.useRef<HTMLInputElement>(null);
     const descriptionRef = React.useRef<HTMLTextAreaElement>(null);
     const dispatch = useDispatch();
