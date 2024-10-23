@@ -1,6 +1,7 @@
 import {ChangeEvent, FormEvent, useState} from "react";
 import axios from "axios";
 import {useDispatch} from "react-redux";
+import {useNavigate} from 'react-router-dom';
 import {AppDispatch} from "../../app/store";
 import {loginSuccess} from "./authSlice";
 
@@ -8,6 +9,7 @@ function LoginView() {
 
     const [formData, setFormData] = useState({email: '', password: ''});
     const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
@@ -33,6 +35,9 @@ function LoginView() {
 
                 // Add token to Axios common headers for future requests
                 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+                // Redirect to the main page
+                navigate('/');
             }
         } catch (err: any) {
             console.log(err.message);
