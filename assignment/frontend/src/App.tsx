@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from './app/store';
-import { addTodo, toggleTodo, removeTodo } from './features/todo/todoSlice';
+import React, {useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from './app/store';
+import {addTodo, removeTodo, toggleTodo} from './features/todo/todoSlice';
 import './App.css';
+import {TodoCard} from "./components/TodoCard";
 
 const App: React.FC = () => {
   const [text, setText] = useState('');
@@ -36,21 +37,11 @@ const App: React.FC = () => {
       <ul className="w-full max-w-md">
         {todos.map((todo) => (
           <li
-            key={todo.id}
-            className="flex justify-between items-center bg-white p-2 mb-2 rounded shadow"
+              key={todo.id}
+              className="flex justify-between items-center bg-white p-2 mb-2 rounded shadow"
           >
-            <span
-              className={`flex-1 ${todo.completed ? 'line-through' : ''}`}
-              onClick={() => dispatch(toggleTodo(todo.id))}
-            >
-              {todo.text}
-            </span>
-            <button
-              onClick={() => dispatch(removeTodo(todo.id))}
-              className="bg-red-500 text-white p-1 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
-            >
-              Remove
-            </button>
+              <TodoCard todo={todo} toggleTodo={() => dispatch(toggleTodo(todo.id))}
+                        removeTodo={() => dispatch(removeTodo(todo.id))}/>
           </li>
         ))}
       </ul>
