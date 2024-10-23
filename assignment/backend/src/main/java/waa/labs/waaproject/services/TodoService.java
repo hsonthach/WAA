@@ -49,4 +49,12 @@ public class TodoService implements ITodoService {
             page.getTotalPages()
         );
     }
+
+    @Override
+    public void deleteTodoById(long id) {
+        Todo todo = todoRepository.findById(id).orElse(null);
+        if (Objects.nonNull(todo)) {
+            todoRepository.delete(todo);
+        }
+    }
 }

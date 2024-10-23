@@ -29,4 +29,10 @@ public class TodoController {
         }
         return ResponseEntity.ok(updatedTodo);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTodo(@PathVariable long id) {
+        todoService.deleteTodoById(id);
+        return ResponseEntity.noContent().build();
+    }
 }
