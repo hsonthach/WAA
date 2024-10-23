@@ -1,10 +1,15 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import axios from "axios";
+import {Navigate, Route, Routes} from "react-router-dom";
 import {RootState} from './app/store';
 import {addTodo, removeTodo, Todo, toggleTodo} from './features/todo/todoSlice';
-import './App.css';
 import {TodoCard} from "./components/TodoCard";
 import {createTodoApi} from "./service/todoService";
+import {loginSuccess} from "./features/auth/authSlice";
+import AuthorizedRoute from "./components/AuthorizedRoute";
+import './App.css';
+import LoginView from "./features/auth/loginView";
 
 const App: React.FC = () => {
     const [text, setText] = useState('');
@@ -55,4 +60,36 @@ const App: React.FC = () => {
     );
 };
 
-export default App;
+const AppWrapper = () => {
+    const dispatch = useDispatch();
+    const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+
+    // Check if token exists when the app starts
+    useEffect(() => {
+        const token = localStorage.getItem('jwtToken');
+        console.log('token: ', token);
+        if (token) {
+            // If token exists, dispatch login success and set the token for future API requests
+            dispatch(loginSuccess(token));
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        }
+    }, [dispatch]);
+
+    return (
+        <Routes>
+            {/* Redirect to main page if already authenticated */}
+            <Route path="/login" element={isAuthenticated ? <Navigate to="/"/> : <LoginView/>}/>
+
+            {/* Protected route */}
+            <Route path="/" element={
+                <AuthorizedRoute>
+                    <App/>
+                </AuthorizedRoute>
+            }/>
+
+            {/* Other routes can be added here */}
+        </Routes>
+    );
+};
+
+export default AppWrapper;
