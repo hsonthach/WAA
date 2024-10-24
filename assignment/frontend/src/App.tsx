@@ -22,8 +22,10 @@ const AppWrapper = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("jwtToken");
+    const email = localStorage.getItem("todoAppEmail") || "";
     if (token) {
-      dispatch(loginSuccess(token));
+      // If token exists, dispatch login success and set the token for future API requests
+      dispatch(loginSuccess({ token, email }));
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     }
   }, [dispatch]);
