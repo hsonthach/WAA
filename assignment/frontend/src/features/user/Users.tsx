@@ -24,7 +24,7 @@ function Users() {
         <div>
             <h1>User List</h1>
             <ul>
-                {users.map(u => <li key={u.id}>{u.firstname + ", " + u.lastname + ", " + u.email}</li>)}
+                {users.map(u => <li key={u.id}>{u.firstName + ", " + u.lastName + ", " + u.email}</li>)}
             </ul>
         </div>
     );
