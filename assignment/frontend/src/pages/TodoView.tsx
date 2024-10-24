@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { RootState, useAppDispatch } from "../state/store";
 import { useEffect, useState } from "react";
-import Button from "../components/Button";
+import Button, { COLORS } from "../components/Button";
 import { updateTodo, deleteTodo } from "../service/todo.service";
 import { toast } from "react-toastify";
 
@@ -85,7 +85,7 @@ export default function TodoView() {
 
           <div className="flex gap-1">
             <Button
-              className="bg-red-600 hover:bg-red-400"
+              background={COLORS.RED}
               onClick={onDelete}
               text={status === "loading" ? "Loading..." : "Remove"}
             />
