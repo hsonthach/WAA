@@ -42,7 +42,7 @@ export default function TodoView() {
       setName(todo.name);
       setDescription(todo.description);
     }
-  }, []);
+  }, [id, todos]);
 
   return (
     <div className="flex flex-col justify-center items-center">
