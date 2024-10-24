@@ -68,7 +68,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         User u = new User();
         u.setId(Long.parseLong(subject[0]));
         u.setEmail(subject[1]);
-//        u.setRoles(subject[2]);
         if (subject[2] != null && !subject[2].isEmpty()) {
             List<String> roles = Arrays.asList(
                     subject[2]

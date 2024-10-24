@@ -37,9 +37,9 @@ public class TodoService implements ITodoService {
 
     @Override
     public PageHolder<Todo> getTodos(Pagination pagination) {
-        Sort sorter = Sort.by(Sort.Direction.ASC, "id");
+        Sort sorter = Sort.by(Sort.Direction.DESC, "id");
         if (Objects.nonNull(pagination.getSortBy())) {
-            sorter = Sort.by(Sort.Direction.ASC, pagination.getSortBy());
+            sorter = Sort.by(Sort.Direction.DESC, pagination.getSortBy());
         }
 
         Pageable pageable = PageRequest.of(pagination.getPage(), pagination.getSize(), sorter);
