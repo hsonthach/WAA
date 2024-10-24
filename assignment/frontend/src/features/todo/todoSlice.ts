@@ -23,7 +23,7 @@ const initialState: TodoState = {
 const baseUrl = "http://localhost:8080/todos";
 const getHeaders = () => {
     const token = localStorage.getItem("jwtToken");
-    console.log("Token used in headers:", token);
+    // console.log("Token used in headers:", token);
     return {
         "Content-Type": "application/json",
         ...(token ? {Authorization: `Bearer ${token}`} : {}),

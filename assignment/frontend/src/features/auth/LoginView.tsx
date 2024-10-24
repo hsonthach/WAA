@@ -27,12 +27,14 @@ function LoginView() {
             });
             // console.log(response);
             const token = response?.data?.token || '';
+            const email = response?.data?.email || '';
             if (token) {
                 // Save the token to Redux
-                dispatch(loginSuccess(token));
+                dispatch(loginSuccess({token, email}));
 
                 // Optionally save to localStorage or sessionStorage for persistence
                 localStorage.setItem('jwtToken', token);
+                localStorage.setItem('todoAppEmail', email);
 
                 // Add token to Axios common headers for future requests
                 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
