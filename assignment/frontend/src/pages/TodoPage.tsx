@@ -28,6 +28,10 @@ export default function TodoPage() {
 
   return (
     <>
+      <div
+        className="fixed h-full w-full bg z-0"
+        style={{ backgroundImage: 'url("/main-bg.jpeg")' }}
+      ></div>
       <nav className="fixed w-screen bg-gray-800">
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
@@ -101,11 +105,10 @@ export default function TodoPage() {
           </div>
         </div>
       </nav>
-      <div
-        className="h-full bg flex flex-col justify-center items-center gap-5"
-        style={{ backgroundImage: 'url("/main-bg.jpeg")' }}
-      >
-        <Outlet />
+      <div className="h-full flex flex-col justify-center items-center gap-5">
+        <div className="z-10">
+          <Outlet />
+        </div>
       </div>
     </>
   );
