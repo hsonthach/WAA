@@ -46,11 +46,12 @@ function LoginPage() {
   };
 
   return (
-    <div
-      className="h-full bg flex flex-col justify-center items-center"
-      style={{ backgroundImage: 'url("bg.jpg")' }}
-    >
-      <div className="bg-white shadow-lg p-6 rounded-md w-[360px]">
+    <div className="h-full flex flex-col justify-center items-center">
+      <div
+        className="absolute bg w-full h-full z-0"
+        style={{ backgroundImage: 'url("bg.jpg")' }}
+      ></div>
+      <div className="bg-white shadow-lg p-6 rounded-md w-[360px] z-10">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             className="mx-auto h-[3.5em] w-auto"

@@ -25,6 +25,7 @@ export default function TodoView() {
         description: description,
       }) as any
     );
+    navigate("/todos");
     toast.info("Saved successfully!");
   };
 

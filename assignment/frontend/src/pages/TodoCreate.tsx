@@ -4,6 +4,7 @@ import { createTodo } from "../service/todo.service";
 import { RootState, useAppDispatch } from "../state/store";
 import Button from "../components/Button";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function TodoCreate() {
   const [name, setName] = useState("");
@@ -11,11 +12,12 @@ export default function TodoCreate() {
 
   const { status } = useSelector((state: RootState) => state.todo);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleAddTodo = async () => {
     try {
       if (name.trim() && description.trim()) {
-        dispatch(
+        await dispatch(
           createTodo({
             name,
             description,
@@ -23,6 +25,7 @@ export default function TodoCreate() {
         );
         setName("");
         setDescription("");
+        navigate("/todos");
       }
     } catch (error) {
       console.error("Failed to add todo:", error);
